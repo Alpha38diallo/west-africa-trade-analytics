@@ -11,11 +11,5 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Jupyter
-.ipynb_checkpoints/
-
 # Raw datasets
 data/raw/*.csv
-
-# Optional logs
-*.log
