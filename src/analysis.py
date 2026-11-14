@@ -38,8 +38,8 @@ df = df.sort_values(["country", "year"])
 
 overview = (
     df.groupby("year")[["exports", "imports"]]
-    .sum()
-    .reset_index()
+      .sum()
+      .reset_index()
 )
 
 fig = px.line(
@@ -49,23 +49,33 @@ fig = px.line(
     title="West Africa Imports vs Exports (1960-2025)"
 )
 
+regional_positions = {
+    2008: 0.85,
+    2014: 0.60,
+    2020: 0.35
+}
+
 for year, label in regional_events.items():
 
     fig.add_vline(
         x=year,
         line_dash="dot",
         line_color="red",
-        opacity=0.5
+        line_width=3,
+        opacity=0.8
     )
 
     fig.add_annotation(
         x=year,
-        y=1,
+        y=regional_positions[year],
         yref="paper",
         text=label,
         showarrow=False,
         textangle=-90,
-        font=dict(size=10, color="red")
+        font=dict(
+            size=20,
+            color="darkgreen"
+        )
     )
 
 fig.update_layout(
@@ -86,8 +96,8 @@ print("west_africa_trade_overview.html created")
 
 balance = (
     df.groupby("year")["balance"]
-    .sum()
-    .reset_index()
+      .sum()
+      .reset_index()
 )
 
 fig = px.line(
@@ -97,12 +107,33 @@ fig = px.line(
     title="West Africa Trade Balance (1960-2025)"
 )
 
+regional_positions = {
+    2008: 0.85,
+    2014: 0.60,
+    2020: 0.35
+}
+
 for year, label in regional_events.items():
+
     fig.add_vline(
         x=year,
         line_dash="dot",
         line_color="red",
-        opacity=0.5
+        line_width=3,
+        opacity=0.8
+    )
+
+    fig.add_annotation(
+        x=year,
+        y=regional_positions[year],
+        yref="paper",
+        text=label,
+        showarrow=False,
+        textangle=-90,
+        font=dict(
+            size=20,
+            color="darkgreen"
+        )
     )
 
 fig.update_layout(
@@ -121,14 +152,6 @@ print("trade_balance.html created")
 # 3. GUINEA IMPORTS VS EXPORTS
 # --------------------------------------------------
 
-guinea_events = {
-    2008: "Financial Crisis",
-    2014: "Ebola",
-    2016: "Ebola Ends",
-    2020: "COVID-19",
-    2021: "Guinea Coup"
-}
-
 guinea = (
     df[df["country"] == "Guinea"]
     .sort_values("year")
@@ -141,25 +164,36 @@ fig = px.line(
     title="Guinea Imports vs Exports (1986-2025)"
 )
 
+guinea_positions = {
+    2008: 0.85,
+    2014: 0.70,
+    2016: 0.55,
+    2020: 0.40,
+    2021: 0.25
+}
+
 for year, label in guinea_events.items():
 
+    # Ligne verticale rouge
     fig.add_vline(
         x=year,
         line_dash="dot",
         line_color="red",
-        opacity=0.5
+        line_width=3,
+        opacity=0.8
     )
 
+    # Label vert
     fig.add_annotation(
         x=year,
-        y=1,
+        y=guinea_positions[year],
         yref="paper",
         text=label,
         showarrow=False,
         textangle=-90,
         font=dict(
-            size=10,
-            color="red"
+            size=20,
+            color="darkgreen"
         )
     )
 
@@ -169,9 +203,11 @@ fig.add_annotation(
     text="Simandou Outlook",
     showarrow=True,
     arrowhead=2,
+    arrowwidth=2,
+    arrowcolor="darkgreen",
     font=dict(
-        size=12,
-        color="green"
+        size=20,
+        color="darkgreen"
     )
 )
 
@@ -198,25 +234,36 @@ fig = px.line(
     title="Guinea Trade Balance (1986-2025)"
 )
 
+guinea_positions = {
+    2008: 0.85,
+    2014: 0.70,
+    2016: 0.55,
+    2020: 0.40,
+    2021: 0.25
+}
+
 for year, label in guinea_events.items():
 
+    # Ligne verticale rouge
     fig.add_vline(
         x=year,
         line_dash="dot",
         line_color="red",
-        opacity=0.5
+        line_width=3,
+        opacity=0.8
     )
 
+    # Label vert
     fig.add_annotation(
         x=year,
-        y=1,
+        y=guinea_positions[year],
         yref="paper",
         text=label,
         showarrow=False,
         textangle=-90,
         font=dict(
-            size=10,
-            color="red"
+            size=20,
+            color="darkgreen"
         )
     )
 
@@ -226,9 +273,11 @@ fig.add_annotation(
     text="Simandou Outlook",
     showarrow=True,
     arrowhead=2,
+    arrowwidth=2,
+    arrowcolor="darkgreen",
     font=dict(
-        size=12,
-        color="green"
+        size=20,
+        color="darkgreen"
     )
 )
 
@@ -249,11 +298,11 @@ print("guinea_trade_balance.html created")
 # --------------------------------------------------
 
 comparison_countries = [
-    "Burkina Faso",
     "Ghana",
     "Côte d’Ivoire",
     "Guinea",
-    "Senegal"
+    "Senegal",
+    "Burkina Faso"
 ]
 
 comparison = (
@@ -278,5 +327,3 @@ fig.update_layout(
 fig.write_html(
     "visualizations/west_africa_comparison.html"
 )
-
-print("west_africa_comparison.html created")
