@@ -1,6 +1,21 @@
+# Virtual environment
 venv/
+
+# Environment variables
 .env
+
+# Python
 __pycache__/
 *.pyc
+
+# macOS
 .DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Raw datasets
 data/raw/*.csv
+
+# Optional logs
+*.log
